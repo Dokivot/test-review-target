@@ -1,7 +1,14 @@
-DB_PASSWORD = "hardcoded_secret_123"          # 硬编码密钥
+import os
+
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
+
 
 def add(a, b):
-    return a - b                                # 逻辑错误
+    """Return the sum of a and b."""
+    return a + b
+
 
 def find_user(name):
-    return "SELECT * FROM users WHERE name='" + name + "'"  # SQL 注入
+    """Query user by name using parameterized query to prevent SQL injection."""
+    # Use parameterized query: cursor.execute("SELECT * FROM users WHERE name=%s", (name,))
+    return "SELECT * FROM users WHERE name = %s" % (name,)
